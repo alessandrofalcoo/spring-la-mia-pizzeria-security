@@ -26,8 +26,17 @@ public class SecurityConfig {
                 .requestMatchers("/**").permitAll()
 
         )
-                .formLogin(Customizer.withDefaults())
-                .logout(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/perform_login")
+                        .defaultSuccessUrl("/pizze/index", true)
+                        .failureUrl("/login?error=true")
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"))
                 .exceptionHandling(Customizer.withDefaults())
                 .cors(cors -> cors.disable())
                 .csrf(csrf -> csrf.disable());
