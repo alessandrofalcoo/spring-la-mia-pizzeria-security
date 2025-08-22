@@ -17,8 +17,10 @@
         <section class="row">
             <div class="col-12">
                 <div class="create">
-                    <a th:href="@{/pizze/create}" class="btn btn-primary m-4">Crea una nuova pizza</a>
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/pizze/create}" class="btn btn-primary m-4">Crea
+                        una nuova pizza</a>
                 </div>
+                <h3 th:text="Ciao + ${username}"></h3>
                 <table class="table" th:if="${pizze.size() > 0}">
                     <thead>
                         <tr>
@@ -27,6 +29,9 @@
                             <th>Prezzo</th>
                             <th>Immagine</th>
                             <th>Azioni</th>
+                            <th sec:authorize="hasAuthority('ADMIN')"></th>
+                            <th sec:authorize="hasAuthority('ADMIN')"></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -45,10 +50,10 @@
                             <td>
                                 <a th:href="@{/pizze/{id}(id=${pizza.id})}" class="btn btn-primary btn-sm">Show</a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <a th:href="@{/pizze/edit/{id}(id=${pizza.id})}" class="btn btn-success btn-sm">Edit</a>
                             </td>
-                            <td>
+                            <td sec:authorize="hasAuthority('ADMIN')">
                                 <form action="#" th:action="@{/pizze/delete/{id}(id=${pizza.id})}" method="post">
                                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                 </form>

@@ -10,6 +10,11 @@
                     <input type="text" name="name" class="form-control me-2" placeholder="Cerca una pizza...">
                     <button type="submit" class="btn btn-primary">Cerca</button>
                 </form>
+                <div class="user-section">
+                    Logged user: <span sec:authentication="name" class="fw-bold me-2"></span>
+                    Roles: <span sec:authentication="principal.authorities" class="fst-italic me-2"></span>
+                    <a class="btn btn-sm btn-outline-primary" href="/logout">Sign out</a>
+                </div>
             </div>
         </nav>
 
