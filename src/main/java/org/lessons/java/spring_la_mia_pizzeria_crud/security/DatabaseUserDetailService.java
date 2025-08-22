@@ -30,4 +30,12 @@ public class DatabaseUserDetailService implements UserDetailsService {
         return new DatabaseUserDetails(userAttempt.get());
     }
 
+    public UserRepository getUserRepository() {
+        return this.userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
 }

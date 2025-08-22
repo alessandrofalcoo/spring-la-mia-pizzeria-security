@@ -19,17 +19,18 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request -> request
-
-                .requestMatchers("/pizze/create", "/pizze/edit/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/pizze/**").hasAuthority("ADMIN")
-                .requestMatchers("/ingredients", "/ingredients/**").hasAuthority("ADMIN")
-                .requestMatchers("/pizze", "/pizze/**").hasAnyAuthority("USER", "ADMIN")
+                .requestMatchers("/pizze/create", "/pizze/edit/**").hasAuthority("Admin")
+                .requestMatchers(HttpMethod.POST, "/pizze/**").hasAuthority("Admin")
+                .requestMatchers("/ingredients", "/ingredients/**").hasAuthority("Admin")
+                .requestMatchers("/pizze", "/pizze/**").hasAnyAuthority("User", "Admin")
                 .requestMatchers("/**").permitAll()
 
         )
                 .formLogin(Customizer.withDefaults())
                 .logout(Customizer.withDefaults())
-                .exceptionHandling(Customizer.withDefaults());
+                .exceptionHandling(Customizer.withDefaults())
+                .cors(cors -> cors.disable())
+                .csrf(csrf -> csrf.disable());
 
         return http.build();
     }
@@ -44,7 +45,7 @@ public class SecurityConfig {
     DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
-        authProvider.setUserDetailsService(null);
+        authProvider.setUserDetailsService(userDetailService());
 
         authProvider.setPasswordEncoder(passwordEncoder());
 
@@ -55,4 +56,5 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
 }

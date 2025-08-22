@@ -30,9 +30,19 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "role_user", joinColumns = @JoinColumn(name = "name_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "role_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 
     private Set<Role> roles;
+
+    public User(Integer id, String username, String password, Set<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public User() {
+    }
 
     public Set<Role> getRoles() {
         return this.roles;
