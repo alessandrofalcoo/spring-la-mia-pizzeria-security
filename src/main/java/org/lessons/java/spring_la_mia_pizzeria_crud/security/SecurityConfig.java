@@ -39,6 +39,7 @@ public class SecurityConfig {
         return new DatabaseUserDetailService();
     }
 
+    @Bean
     @SuppressWarnings("deprecation")
     DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
