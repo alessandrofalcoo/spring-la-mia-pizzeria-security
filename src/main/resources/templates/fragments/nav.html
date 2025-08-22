@@ -12,7 +12,9 @@
                 </form>
                 <div class="user-section">
                     Logged user: <span sec:authentication="name" class="fw-bold me-2"></span>
-                    Roles: <span sec:authentication="principal.authorities" class="fw-bold me-2"></span>
+                    <div th:if="${#authorization.expression('isAuthenticated()')}">
+                        Roles: <span th:text="${#authentication.authorities}" class="fw-bold me-2"></span>
+                    </div>
                     <a class="btn btn-sm btn-outline-primary" href="/logout">Sign out</a>
                 </div>
             </div>
