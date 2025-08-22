@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<body>
+    <th:block th:fragment="nav">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-4 p-4">
+            <div class="container-fluid d-flex align-items-center">
+                <a class="navbar-brand me-4" th:href="@{/pizze/index}">La mia pizzeria</a>
+                <form th:action="@{/pizze/searchByName}" method="get" class="d-flex mb-3">
+                    <input type="text" name="name" class="form-control me-2" placeholder="Cerca una pizza...">
+                    <button type="submit" class="btn btn-primary">Cerca</button>
+                </form>
+            </div>
+        </nav>
+
+    </th:block>
+
+</body>
+
+</html>

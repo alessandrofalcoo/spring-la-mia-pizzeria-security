@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+    <th:block th:replace="fragments/styles :: bootStyle"></th:block>
+</head>
+
+<body>
+
+    <header>
+
+        <th:block th:replace="fragments/nav"></th:block>
+
+    </header>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-12">
+                <th:block>
+                    <h1 class="py-4 mb-2 text-center fw-bold" th:if="${edit}">
+                        Ingredient: [[${ingredient.name}]]
+                    </h1>
+                    <h1 class="py-4 mb-2 text-center fw-bold" th:unless="${edit}">
+                        Adding new ingredient
+                    </h1>
+                    <div class="row justify-content-center">
+                        <div class="col-8">
+
+                            <form id="ingredients-form"
+                                th:action="${edit} ? @{|/ingredients/edit/${ingredient.id}|} : @{/ingredients/create}"
+                                th:object="${ingredient}" method="post">
+
+                                <div class="mb-3" th:if="${#fields.hasErrors()}">
+                                    <ul class="alert alert-danger ps-5">
+                                        <li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name:</label>
+                                    <input type="text" class="form-control" id="name" th:field="*{name}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description:</label>
+                                    <input type="text" class="form-control" id="description" th:field="*{description}">
+                                </div>
+                                <div class="mb-3 d-flex justify-content-between">
+                                    <input type="submit" class="btn btn-primary" value="Save">
+                                    <input type="reset" class="btn btn-warning" id="name" value="Reset all fields">
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </th:block>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
+</main>
+</body>
+
+</html>

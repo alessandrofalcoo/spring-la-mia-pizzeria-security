@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="fragments/styles :: bootStyle"></th:block>
+
+    <title>Pizza : [[${pizza.name}]]</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="fragments/nav"></th:block>
+
+    </header>
+    <main class="container" th:object="${pizza}">
+        <h1> [[*{name}]]</h1>
+        <hr />
+        <section class="row justify-content-center">
+            <h2>[[*{desc}]]</h2>
+            <h3>[[*{price}]]€</h3>
+            <img th:src="*{url}" alt="">
+        </section>
+
+        <section class="row mb-3 offers my-4">
+            <th:block th:if="${pizza.getIngredients().size() > 0}">
+                <h3 class="mb-2">Ingredients:</h3>
+                <ul class="mb-3 ps-4">
+                    <li th:each="ingredient : *{ingredients}" th:text="${ingredient.name}"></li>
+                </ul>
+            </th:block>
+            <th:block th:unless="${pizza.getIngredients().size() > 0}">
+                <p class="mb-3 alert alert-info">This pizza has no ingredients</p>
+            </th:block>
+            <div class="col-12" th:unless="${pizza.getSpecialOffers().size() > 0}">
+                <div class="alert alert-warning fw-bold">
+                    There are no offers for this Pizza
+                </div>
+            </div>
+            <div class="col-12" th:if="${pizza.getSpecialOffers().size() > 0}">
+                <h2>
+                    Special Offers:
+                </h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Begin Date</th>
+                            <th>End Date</th>
+                            <th>Title</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="specialOffer : ${pizza.specialOffers}">
+                            <td>[[${specialOffer.id}]]</td>
+                            <td>[[${specialOffer.beginDate}]]</td>
+                            <td>[[${specialOffer.endDate}]]</td>
+                            <td>[[${specialOffer.title}]]</td>
+                            <td>
+                                <a th:href="@{/offers/edit/{id}(id=${specialOffer.id})}"
+                                    class="btn btn-success btn-sm">Update</a>
+                            </td>
+                            <td>
+                                <form th:action="@{/offers/delete/{id}(id=${specialOffer.id})}" method="post">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+</body>
+
+</html>

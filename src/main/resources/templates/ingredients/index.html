@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <th:block th:replace="fragments/styles :: bootStyle"></th:block>
+
+    <title>Ingredients</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="fragments/nav"></th:block>
+    </header>
+    <main class="container">
+        <section class="row">
+            <div class="col-12">
+                <h1 class="text-center">Lista degli Ingredienti</h1>
+                <div class="create">
+                    <a th:href="@{/ingredients/create}" class="btn btn-primary m-4">Aggiungi un nuovo ingrediente</a>
+                </div>
+                <table class="table" th:if="${ingredients.size() > 0}">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Descrizione</th>
+                            <th>Number of Pizza</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="ingredient : ${ingredients}" th:object="${ingredient}">
+                            <td>[[*{name}]]</td>
+                            <td>[[*{description}]]</td>
+                            <td>[[*{pizze.size()}]]</td>
+                            <td>
+                                <a th:href="@{/ingredients/{id}/offer(id=${ingredient.id})}"
+                                    class="btn btn-outline-primary btn-sm">Add an ingredient</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/ingredients/{id}(id=${ingredient.id})}"
+                                    class="btn btn-primary btn-sm">Show</a>
+                            </td>
+                            <td>
+                                <a th:href="@{/ingredients/edit/{id}(id=${ingredient.id})}"
+                                    class="btn btn-success btn-sm">Edit</a>
+                            </td>
+                            <td>
+                                <form action="#" th:action="@{/ingredients/delete/{id}(id=${ingredient.id})}"
+                                    method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p th:text="No ingredients are available at the moment" th:unless="${ingredients.size() > 0}"></p>
+            </div>
+
+        </section>
+
+    </main>
+</body>
+
+</html>

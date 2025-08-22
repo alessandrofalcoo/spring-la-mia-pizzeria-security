@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    height: 200px;
+    width: 200px !important;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.pizza-button {
+    background: linear-gradient(135deg, #ff4e50, #f9d423);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+
+    a {
+        color: white;
+    }
+}
+
+.pizza-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+}
+
+.pizza-button:active {
+    transform: scale(0.96);
+}
